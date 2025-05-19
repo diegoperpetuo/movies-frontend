@@ -9,9 +9,8 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const res = await fetch("http://localhost:5000/api/login", {
+      const res = await fetch("https://movies-crud-zeta.vercel.app/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -23,6 +22,8 @@ export default function Login() {
 
       localStorage.setItem("token", data.token);
       toast.success("Login realizado com sucesso!");
+
+      // Redireciona para a Dashboard
       navigate("/dashboard");
     } catch (err) {
       toast.error(err.message);

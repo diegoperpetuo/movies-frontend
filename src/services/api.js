@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = "https://movies-crud-zeta.vercel.app";
 
 export async function apiRequest(endpoint, method = 'GET', body = null, token = null) {
   const headers = {

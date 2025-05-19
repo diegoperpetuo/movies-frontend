@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import "../styles/Dashboard.css";
 
 export default function Dashboard() {
   const [movies, setMovies] = useState([]);
@@ -18,7 +19,7 @@ export default function Dashboard() {
   const fetchMovies = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/movies", {
+      const res = await fetch("https://sturdy-sniffle-wwpp96xp95cg76r-5000.app.github.dev/movies", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -33,7 +34,7 @@ export default function Dashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/movies", {
+      const res = await fetch("https://sturdy-sniffle-wwpp96xp95cg76r-5000.app.github.dev/movies", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +54,7 @@ export default function Dashboard() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:5000/movies/${id}`, {
+      await fetch(`https://movies-crud-zeta.vercel.app/movies/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -65,8 +66,9 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="dashboard">
-      <h2>Bem-vindo à sua coleção de filmes</h2>
+    <div className="dashboard-container">
+      <h2 className="dashboard-title">🎬 Minha Coleção de Filmes</h2>
+
       <form onSubmit={handleSubmit} className="movie-form">
         <input
           type="text"
@@ -99,29 +101,46 @@ export default function Dashboard() {
           max="10"
           required
         />
-        <button type="submit">Adicionar Filme</button>
+        <button type="submit">
+          ➕ Adicionar Filme
+        </button>
       </form>
 
       {loading ? (
-        <p>Carregando filmes...</p>
+        <p className="loading-text">Carregando filmes...</p>
       ) : (
-        <ul className="movie-list">
+        <ul className="movies-list">
           {movies.map((movie) => (
-            <li key={movie._id}>
-              <strong>{movie.title}</strong> ({movie.releaseYear})<br />
-              <em>{movie.genre}</em> - Nota: {movie.rating}
-              <button onClick={() => handleDelete(movie._id)}>Remover</button>
+            <li key={movie._id} className="movie-item">
+              <div className="movie-header">
+                <div>
+                  <p className="movie-title">{movie.title} ({movie.releaseYear})</p>
+                  <p className="movie-details">{movie.genre} - Nota: {movie.rating}</p>
+                </div>
+                <button
+                  onClick={() => handleDelete(movie._id)}
+                  className="delete-button"
+                >
+                  🗑️ Remover
+                </button>
+              </div>
             </li>
           ))}
         </ul>
       )}
 
-      <button className="logout-button" onClick={() => {
-        localStorage.removeItem("token");
-        navigate("/login");
-      }}>
-        Sair
-      </button>
+      <div>
+        <button
+          className="logout-button"
+          onClick={() => {
+            localStorage.removeItem("token");
+            toast.success("Logout realizado com sucesso!");
+            navigate("/login");
+          }}
+        >
+          🚪 Sair
+        </button>
+      </div>
     </div>
   );
 }

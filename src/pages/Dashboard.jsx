@@ -54,7 +54,7 @@ export default function Dashboard() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`https://movies-crud-zeta.vercel.app/movies/${id}`, {
+      await fetch(`https://sturdy-sniffle-wwpp96xp95cg76r-5000.app.github.dev/movies/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

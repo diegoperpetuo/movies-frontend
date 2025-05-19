@@ -10,7 +10,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("https://movies-crud-zeta.vercel.app/auth/login", {
+      const res = await fetch("https://sturdy-sniffle-wwpp96xp95cg76r-5000.app.github.dev/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

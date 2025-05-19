@@ -12,7 +12,7 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://movies-crud-zeta.vercel.app/auth/register", {
+      const res = await fetch("https://sturdy-sniffle-wwpp96xp95cg76r-5000.app.github.dev/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
